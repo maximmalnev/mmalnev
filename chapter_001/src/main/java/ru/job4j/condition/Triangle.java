@@ -102,6 +102,6 @@ public class Triangle {
      * @return true если треугольник можно построить.
      */
     private boolean exist(double ab, double ac, double bc) {
-        return ab + bc > ac || bc + ac > ab || ab + ac > bc;
+        return ab + bc > ac && bc + ac > ab && ab + ac > bc;
     }
 }
