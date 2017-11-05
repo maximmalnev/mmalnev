@@ -19,9 +19,9 @@ public class StringContainsWord {
         boolean result = false;
         for (int i = 0; i < origin.length - sub.length; i++) {
             if (origin[i] == sub[0]) {
-                int n = i;
-                int letters = 0;
-                for (int j = 0; j < sub.length; j++) {
+                int n = i + 1;
+                int letters = 1;
+                for (int j = 1; j < sub.length; j++) {
                     if (origin[n] == sub[j]) {
                         n++;
                         letters++;
