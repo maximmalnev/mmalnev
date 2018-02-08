@@ -71,9 +71,9 @@ public class Tracker {
         for (Item item : items) {
             if (item != null && item.getId().equals(id)) {
                 System.out.println("Заменяю запись с ID: " + id);
-                item.name = newItem.name;
-                item.description = newItem.description;
-                item.create = newItem.create;
+                item.setName(newItem.getName());
+                item.setDescription(newItem.getDescription());
+                item.setCreate(newItem.getCreate());
             }
         }
     }

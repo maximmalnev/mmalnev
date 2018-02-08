@@ -2,8 +2,8 @@ package ru.job4j.tracker;
 
 public class Item {
     private String id;
-    public String name, description;
-    public long create;
+    private String name, description;
+    private long create;
 
     public Item() {
     }
@@ -32,5 +32,17 @@ public class Item {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCreate(long create) {
+        this.create = create;
     }
 }
