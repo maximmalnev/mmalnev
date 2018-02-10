@@ -18,6 +18,11 @@ public class Tracker {
      * получение заявки по id - public Item findById(String id);
      */
     private final Item[] items = new Item[100];
+
+    public int getPosition() {
+        return position;
+    }
+
     private int position = 0;
     private static final Random RN = new Random();
 
@@ -70,7 +75,6 @@ public class Tracker {
     public void replace(String id, Item newItem) {
         for (Item item : items) {
             if (item != null && item.getId().equals(id)) {
-                System.out.println("Заменяю запись с ID: " + id);
                 item.setName(newItem.getName());
                 item.setDescription(newItem.getDescription());
                 item.setCreate(newItem.getCreate());
@@ -84,7 +88,7 @@ public class Tracker {
 
         for (int i = 0; i != this.position; i++) {
             if (this.items[i].getId().equals(id)) {
-                System.out.println("Удаляю запись с ID: " + id + " номер в массиве: " + i + " номер позиции: " + this.position);
+                //System.out.println("Удаляю запись с ID: " + id + " номер в массиве: " + i + " номер позиции: " + this.position);
                 System.arraycopy(temp, i + 1, items, i, this.position - i - 1);
                 items[this.position - 1] = null;
                 this.position--;
@@ -103,14 +107,14 @@ public class Tracker {
                     result = new Item[1];
                     result[0] = item;
                     pos++;
-                    System.out.println(item.getName());
+                    //System.out.println(item.getName());
                 } else {
                     Item[] temp = new Item[pos + 1];
                     //copy
                     System.arraycopy(result, 0, temp, 0, result.length);
                     temp[pos++] = item;
                     result = temp;
-                    System.out.println(item.getName());
+                    //System.out.println(item.getName());
                 }
 
             }
