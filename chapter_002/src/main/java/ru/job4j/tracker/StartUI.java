@@ -36,7 +36,7 @@ public class StartUI {
      * @param input   ввод данных.
      * @param tracker хранилище заявок.
      */
-    public StartUI(Input input, Tracker tracker) {
+    private StartUI(Input input, Tracker tracker) {
         this.input = input;
         this.tracker = tracker;
     }
@@ -44,7 +44,7 @@ public class StartUI {
     /**
      * Основой цикл программы.
      */
-    public void init() {
+    private void init() {
         boolean exit = false;
         while (!exit) {
             this.showMenu();
