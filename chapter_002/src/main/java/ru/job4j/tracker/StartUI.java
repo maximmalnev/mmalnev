@@ -36,7 +36,7 @@ public class StartUI {
      * @param input   ввод данных.
      * @param tracker хранилище заявок.
      */
-    private StartUI(Input input, Tracker tracker) {
+    public StartUI(Input input, Tracker tracker) {
         this.input = input;
         this.tracker = tracker;
     }
@@ -44,7 +44,7 @@ public class StartUI {
     /**
      * Основой цикл программы.
      */
-    private void init() {
+    public void init() {
         boolean exit = false;
         while (!exit) {
             this.showMenu();
@@ -118,7 +118,7 @@ public class StartUI {
     /**
      * Метод реализует добавленяи новый заявки в хранилище.
      */
-    private void createItem() {
+    public void createItem() {
         System.out.println("---------- Добавление новой заявки ----------");
         String name = this.input.ask("Введите имя заявки :");
         String desc = this.input.ask("Введите описание заявки :");
@@ -128,7 +128,7 @@ public class StartUI {
         System.out.println("-------------------------------------------");
     }
 
-    private void showMenu() {
+    public void showMenu() {
         System.out.println("0. Добавить заявку");
         System.out.println("1. Показать все заявки");
         System.out.println("2. Редактировать заявку");
