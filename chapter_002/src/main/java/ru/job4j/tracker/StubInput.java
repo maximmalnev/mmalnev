@@ -8,14 +8,12 @@ public class StubInput implements Input {
      * 0 - выбор пункта меня "добавить новую заявку".
      * name - имя заявки
      * desc - описание заявки
-     * y - выйти из трекера.
-     */
-    private final String[] value;
-
-    /**
+     * 6 - выйти из трекера.
+     *
      * Поле считает количество вызовом метода ask.
      * При каждом вызове надо передвинуть указатель на новое число.
      */
+    private final String[] value;
     private int position;
 
     public StubInput(final String[] value) {

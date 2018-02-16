@@ -9,7 +9,6 @@ public class StartUI {
      * Константа меню для добавления новой заявки.
      */
     private static final String ADD = "0";
-
     private static final String SHOW_ALL = "1";
     private static final String EDIT = "2";
     private static final String DELETE = "3";
@@ -134,7 +133,7 @@ public class StartUI {
         System.out.println("2. Редактировать заявку");
         System.out.println("3. Удалить заявку");
         System.out.println("4. Найти заявку по ID");
-        System.out.println("5. Найти заявку по имени");
+        System.out.println("5. Найти заявку(и) по имени");
         System.out.println("6. Выход");
     }
 
