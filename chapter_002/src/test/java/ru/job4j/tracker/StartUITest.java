@@ -15,16 +15,16 @@ public class StartUITest {
     private final PrintStream stdout = System.out;
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-    String menu = new String("0. Добавить заявку\n1. Показать все заявки\n2. Редактировать заявку\n3. Удалить заявку\n4. Найти заявку по ID\n5. Найти заявку(и) по имени\n6. Выход\n");
-
     @Before
     public void loadOutput() {
         System.setOut(new PrintStream(this.out));
     }
+
     @After
     public void backOutput() {
         System.setOut(this.stdout);
     }
+
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         Tracker tracker = new Tracker();
@@ -32,6 +32,7 @@ public class StartUITest {
         new StartUI(input, tracker).init();
         assertThat(tracker.getAll()[0].getName(), is("test name"));
     }
+
     @Test
     public void whenUpdateThenTrackerHasUpdatedValue() {
         Tracker tracker = new Tracker();
@@ -40,6 +41,7 @@ public class StartUITest {
         new StartUI(input, tracker).init();
         assertThat(tracker.findById(item.getId()).getName(), is("test name"));
     }
+
     @Test
     public void whenDeleteThenTrackerHasNoThisValue() {
         Tracker tracker = new Tracker();
@@ -48,6 +50,7 @@ public class StartUITest {
         new StartUI(input, tracker).init();
         assertThat(tracker.findById(item.getId()), is(nullValue()));
     }
+
     @Test
     public void whenShowAllThenPrintAlItemsInTracker() {
         Tracker tracker = new Tracker();
@@ -58,15 +61,45 @@ public class StartUITest {
                 new String(this.out.toByteArray()),
                 is(
                         new StringBuilder()
-                                .append(menu)
-                                .append("---------- Список всех заявок ----------\n")
-                                .append("ID заявки:" + item.getId() + " Имя:" + item.getName() + " Описание:" + item.getDescription() + "\n")
-                                .append("-------------------------------------------\n")
-                                .append(menu)
+                                .append("0. Добавить заявку")
+                                .append(System.lineSeparator())
+                                .append("1. Показать все заявки")
+                                .append(System.lineSeparator())
+                                .append("2. Редактировать заявку")
+                                .append(System.lineSeparator())
+                                .append("3. Удалить заявку")
+                                .append(System.lineSeparator())
+                                .append("4. Найти заявку по ID")
+                                .append(System.lineSeparator())
+                                .append("5. Найти заявку(и) по имени")
+                                .append(System.lineSeparator())
+                                .append("6. Выход")
+                                .append(System.lineSeparator())
+                                .append("---------- Список всех заявок ----------")
+                                .append(System.lineSeparator())
+                                .append("ID заявки:" + item.getId() + " Имя:" + item.getName() + " Описание:" + item.getDescription())
+                                .append(System.lineSeparator())
+                                .append("-------------------------------------------")
+                                .append(System.lineSeparator())
+                                .append("0. Добавить заявку")
+                                .append(System.lineSeparator())
+                                .append("1. Показать все заявки")
+                                .append(System.lineSeparator())
+                                .append("2. Редактировать заявку")
+                                .append(System.lineSeparator())
+                                .append("3. Удалить заявку")
+                                .append(System.lineSeparator())
+                                .append("4. Найти заявку по ID")
+                                .append(System.lineSeparator())
+                                .append("5. Найти заявку(и) по имени")
+                                .append(System.lineSeparator())
+                                .append("6. Выход")
+                                .append(System.lineSeparator())
                                 .toString()
                 )
         );
     }
+
     @Test
     public void whenFindByIdThenPrintSelectedItem() {
         Tracker tracker = new Tracker();
@@ -77,15 +110,45 @@ public class StartUITest {
                 new String(this.out.toByteArray()),
                 is(
                         new StringBuilder()
-                                .append(menu)
-                                .append("---------- Информация по заявке с ID: " + item.getId() + " ----------\n")
-                                .append("Имя:" + item.getName() + " Описание:" + item.getDescription() + "\n")
-                                .append("-------------------------------------------\n")
-                                .append(menu)
+                                .append("0. Добавить заявку")
+                                .append(System.lineSeparator())
+                                .append("1. Показать все заявки")
+                                .append(System.lineSeparator())
+                                .append("2. Редактировать заявку")
+                                .append(System.lineSeparator())
+                                .append("3. Удалить заявку")
+                                .append(System.lineSeparator())
+                                .append("4. Найти заявку по ID")
+                                .append(System.lineSeparator())
+                                .append("5. Найти заявку(и) по имени")
+                                .append(System.lineSeparator())
+                                .append("6. Выход")
+                                .append(System.lineSeparator())
+                                .append("---------- Информация по заявке с ID: " + item.getId() + " ----------")
+                                .append(System.lineSeparator())
+                                .append("Имя:" + item.getName() + " Описание:" + item.getDescription())
+                                .append(System.lineSeparator())
+                                .append("-------------------------------------------")
+                                .append(System.lineSeparator())
+                                .append("0. Добавить заявку")
+                                .append(System.lineSeparator())
+                                .append("1. Показать все заявки")
+                                .append(System.lineSeparator())
+                                .append("2. Редактировать заявку")
+                                .append(System.lineSeparator())
+                                .append("3. Удалить заявку")
+                                .append(System.lineSeparator())
+                                .append("4. Найти заявку по ID")
+                                .append(System.lineSeparator())
+                                .append("5. Найти заявку(и) по имени")
+                                .append(System.lineSeparator())
+                                .append("6. Выход")
+                                .append(System.lineSeparator())
                                 .toString()
                 )
         );
     }
+
     @Test
     public void whenFindByNameThenPrintSelectedItem() {
         Tracker tracker = new Tracker();
@@ -96,11 +159,40 @@ public class StartUITest {
                 new String(this.out.toByteArray()),
                 is(
                         new StringBuilder()
-                                .append(menu)
-                                .append("---------- Информация по заявке(ам) с именем: " + item.getName() + " ----------\n")
-                                .append("ID заявки:" + item.getId() + " Имя:" + item.getName() + " Описание:" + item.getDescription() + "\n")
-                                .append("-------------------------------------------\n")
-                                .append(menu)
+                                .append("0. Добавить заявку")
+                                .append(System.lineSeparator())
+                                .append("1. Показать все заявки")
+                                .append(System.lineSeparator())
+                                .append("2. Редактировать заявку")
+                                .append(System.lineSeparator())
+                                .append("3. Удалить заявку")
+                                .append(System.lineSeparator())
+                                .append("4. Найти заявку по ID")
+                                .append(System.lineSeparator())
+                                .append("5. Найти заявку(и) по имени")
+                                .append(System.lineSeparator())
+                                .append("6. Выход")
+                                .append(System.lineSeparator())
+                                .append("---------- Информация по заявке(ам) с именем: " + item.getName() + " ----------")
+                                .append(System.lineSeparator())
+                                .append("ID заявки:" + item.getId() + " Имя:" + item.getName() + " Описание:" + item.getDescription())
+                                .append(System.lineSeparator())
+                                .append("-------------------------------------------")
+                                .append(System.lineSeparator())
+                                .append("0. Добавить заявку")
+                                .append(System.lineSeparator())
+                                .append("1. Показать все заявки")
+                                .append(System.lineSeparator())
+                                .append("2. Редактировать заявку")
+                                .append(System.lineSeparator())
+                                .append("3. Удалить заявку")
+                                .append(System.lineSeparator())
+                                .append("4. Найти заявку по ID")
+                                .append(System.lineSeparator())
+                                .append("5. Найти заявку(и) по имени")
+                                .append(System.lineSeparator())
+                                .append("6. Выход")
+                                .append(System.lineSeparator())
                                 .toString()
                 )
         );

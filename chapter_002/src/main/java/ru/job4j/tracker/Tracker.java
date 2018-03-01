@@ -86,6 +86,7 @@ public class Tracker {
     public void replace(String id, Item newItem) {
         for (Item item : items) {
             if (item != null && item.getId().equals(id)) {
+                //item = newItem;
                 item.setName(newItem.getName());
                 item.setDescription(newItem.getDescription());
                 item.setCreate(newItem.getCreate());
@@ -93,9 +94,10 @@ public class Tracker {
         }
     }
 
-    public void delete(String id) {
+    public boolean delete(String id) {
         Item[] temp = new Item[this.position];
         System.arraycopy(items, 0, temp, 0, this.position);
+        boolean res = false;
 
         for (int i = 0; i != this.position; i++) {
             if (this.items[i].getId().equals(id)) {
@@ -103,9 +105,11 @@ public class Tracker {
                 System.arraycopy(temp, i + 1, items, i, this.position - i - 1);
                 items[this.position - 1] = null;
                 this.position--;
+                res = true;
                 break;
             }
         }
+    return res;
     }
 
 

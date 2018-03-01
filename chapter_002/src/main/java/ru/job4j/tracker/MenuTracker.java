@@ -1,31 +1,12 @@
 package ru.job4j.tracker;
 
-class EditItem implements UserAction {
-    @Override
-    public int key() {
-        return 2;
-    }
-
-    @Override
-    public void execute(Input input, Tracker tracker) {
-        String id = input.ask("Enter task ID: ");
-        String name = input.ask("Enter task name: ");
-        String desc = input.ask("Enter task description: ");
-        Item item = new Item(name, desc);
-        item.setId(id);
-        tracker.edit(item);
-    }
-
-    @Override
-    public String info() {
-        return String.format("%s. %s", this.key(), "Edit new item");
-    }
-}
+import com.sun.org.apache.xpath.internal.SourceTree;
 
 public class MenuTracker {
+
     private Input input;
     private Tracker tracker;
-    private UserAction[] actions = new UserAction[5];
+    private UserAction[] actions = new UserAction[6];
 
     public MenuTracker(Input input, Tracker tracker) {
         this.input = input;
@@ -34,11 +15,22 @@ public class MenuTracker {
 
     public void fillActions() {
         this.actions[0] = new AddItem();
+        this.actions[1] = new ShowItems();
+        this.actions[2] = new EditItem();
+        this.actions[3] = new DeleteItem();
+        this.actions[4] = new FindById();
+        this.actions[5] = new FindByName();
+    }
+
+    public void select(int key) {
+        this.actions[key].execute(this.input, this.tracker);
     }
 
     public void show() {
         for (UserAction action : this.actions) {
-            System.out.println(action.info());
+            if (action != null) {
+                System.out.println(action.info());
+            }
         }
     }
 
@@ -50,8 +42,8 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            String name = input.ask("Please enter task name: ");
-            String desc = input.ask("Please enter task description: ");
+            String name = input.ask("Please enter tack name:");
+            String desc = input.ask("Please enter tack description:");
             tracker.add(new Item(name, desc));
         }
 
@@ -61,4 +53,103 @@ public class MenuTracker {
         }
     }
 
+    private static class ShowItems implements UserAction {
+        @Override
+        public int key() {
+            return 1;
+        }
+
+        @Override
+        public void execute(Input input, Tracker tracker) {
+            for (Item item : tracker.getAll()) {
+                System.out.println(String.format("%s. %s", item.getId(), item.getName()));
+            }
+        }
+
+        @Override
+        public String info() {
+            return String.format("%s. %s", this.key(), "Show all items");
+        }
+    }
+
+    private class DeleteItem implements UserAction {
+        @Override
+        public int key() {
+            return 3;
+        }
+
+        @Override
+        public void execute(Input input, Tracker tracker) {
+            String id = input.ask("Please enter tack ID:");
+            if (tracker.delete(id)) {
+                System.out.println("Delete item with ID:" + id);
+            } else {
+                System.out.println("Wrong ID");
+            }
+        }
+
+        @Override
+        public String info() {
+            return String.format("%s. %s", this.key(), "Delete3 item");
+        }
+    }
+
+    private class FindById implements UserAction {
+        @Override
+        public int key() {
+            return 4;
+        }
+
+        @Override
+        public void execute(Input input, Tracker tracker) {
+            String id = input.ask("Please enter tack ID:");
+            System.out.println("Item with id " + id + " : " + tracker.findById(id).getName());
+        }
+
+        @Override
+        public String info() {
+            return String.format("%s. %s", this.key(), "Find by ID");
+        }
+    }
+
+    private class FindByName implements UserAction {
+        @Override
+        public int key() {
+            return 5;
+        }
+
+        @Override
+        public void execute(Input input, Tracker tracker) {
+            String name = input.ask("Please enter tack name:");
+            Item[] items = tracker.findByName(name);
+            for (Item item : items) {
+                System.out.println("Task with name " + name + " : " + item.getId());
+            }
+        }
+
+        @Override
+        public String info() {
+            return String.format("%s. %s", this.key(), "Find by Name");
+        }
+    }
+}
+
+class EditItem implements UserAction {
+    @Override
+    public int key() {
+        return 2;
+    }
+
+    @Override
+    public void execute(Input input, Tracker tracker) {
+        String id = input.ask("Please enter tack ID:");
+        String name = input.ask("Please enter tack name:");
+        String desc = input.ask("Please enter tack description:");
+        tracker.replace(id, new Item(name, desc));
+    }
+
+    @Override
+    public String info() {
+        return String.format("%s. %s", this.key(), "Edit item");
+    }
 }
