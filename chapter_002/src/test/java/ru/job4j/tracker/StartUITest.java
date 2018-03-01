@@ -16,7 +16,7 @@ public class StartUITest {
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
     String menu = new String("0. Добавить заявку\n1. Показать все заявки\n2. Редактировать заявку\n3. Удалить заявку\n4. Найти заявку по ID\n5. Найти заявку(и) по имени\n6. Выход\n");
-/*
+
     @Before
     public void loadOutput() {
         System.setOut(new PrintStream(this.out));
@@ -104,5 +104,5 @@ public class StartUITest {
                                 .toString()
                 )
         );
-    }*/
+    }
 }
