@@ -6,7 +6,7 @@ public class MenuTracker {
 
     private Input input;
     private Tracker tracker;
-    private UserAction[] actions = new UserAction[6];
+    private UserAction[] actions = new UserAction[7];
 
     public MenuTracker(Input input, Tracker tracker) {
         this.input = input;
@@ -20,6 +20,7 @@ public class MenuTracker {
         this.actions[3] = new DeleteItem();
         this.actions[4] = new FindById();
         this.actions[5] = new FindByName();
+        this.actions[6] = new ExitMenu();
     }
 
     public void select(int key) {
@@ -42,8 +43,8 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            String name = input.ask("Please enter tack name:");
-            String desc = input.ask("Please enter tack description:");
+            String name = input.ask("Please enter task name:");
+            String desc = input.ask("Please enter task description:");
             tracker.add(new Item(name, desc));
         }
 
@@ -90,7 +91,7 @@ public class MenuTracker {
 
         @Override
         public String info() {
-            return String.format("%s. %s", this.key(), "Delete3 item");
+            return String.format("%s. %s", this.key(), "Delete item");
         }
     }
 
@@ -130,6 +131,23 @@ public class MenuTracker {
         @Override
         public String info() {
             return String.format("%s. %s", this.key(), "Find by Name");
+        }
+    }
+
+    private class ExitMenu implements UserAction {
+        @Override
+        public int key() {
+            return 6;
+        }
+
+        @Override
+        public void execute(Input input, Tracker tracker) {
+
+        }
+
+        @Override
+        public String info() {
+            return String.format("%s. %s", this.key(), "Exit");
         }
     }
 }
