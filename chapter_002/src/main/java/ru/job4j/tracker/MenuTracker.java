@@ -23,8 +23,9 @@ public class MenuTracker {
         this.actions[6] = new ExitMenu();
     }
 
-    public void select(int key) {
+    public int select(int key) {
         this.actions[key].execute(this.input, this.tracker);
+        return key;
     }
 
     public void show() {

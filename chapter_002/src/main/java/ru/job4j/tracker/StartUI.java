@@ -14,6 +14,7 @@ public class StartUI {
      * Хранилище заявок.
      */
     private final Tracker tracker;
+    private int[] ranges = new int[]{0, 1, 2, 3, 4, 5, 6};
 
     /**
      * Конструтор инициализирующий поля.
@@ -35,9 +36,7 @@ public class StartUI {
         boolean exit = false;
         do {
             menu.show();
-            int key = Integer.valueOf(input.ask("Select:"));
-            menu.select(key);
-            if (key == 6) {
+            if (menu.select(input.ask("Select:", ranges)) == 6) {
                 exit = true;
             }
         } while (!exit);
@@ -49,6 +48,6 @@ public class StartUI {
      * @param args - входные параметры
      */
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(), new Tracker()).init();
     }
 }
