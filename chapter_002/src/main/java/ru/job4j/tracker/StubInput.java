@@ -9,7 +9,7 @@ public class StubInput implements Input {
      * name - имя заявки
      * desc - описание заявки
      * 6 - выйти из трекера.
-     *
+     * <p>
      * Поле считает количество вызовом метода ask.
      * При каждом вызове надо передвинуть указатель на новое число.
      */
@@ -35,6 +35,6 @@ public class StubInput implements Input {
 
     @Override
     public int ask(String question, int[] range) {
-        return -1;
+        return Integer.valueOf(this.value[this.position++]);
     }
 }
