@@ -1,7 +1,7 @@
 package ru.job4j.chess;
 
-public class Bishop extends Figure {
-    public Bishop(Cell cell) {
+public class Rook extends Figure {
+    public Rook(Cell cell) {
         super(cell);
     }
 
@@ -14,19 +14,24 @@ public class Bishop extends Figure {
         int deltaX = Integer.compare(x0, x1);
         int deltaY = Integer.compare(y0, y1);
 
-        if (Math.abs(x0 - x1) == Math.abs(y0 - y1)) {
+        if (deltaX == 0) {
+            Cell[] moveArray = new Cell[Math.abs(y0 - y1)];
+            for (int i = 1; i < (Math.abs(y0 - y1) + 1); i++) {
+                moveArray[position++] = new Cell(x0, y0 + deltaY * i);
+            }
+            return moveArray;
+        } else if (deltaY == 0){
             Cell[] moveArray = new Cell[Math.abs(x0 - x1)];
-
             for (int i = 1; i < (Math.abs(x0 - x1) + 1); i++) {
-                moveArray[position++] = new Cell(x0 + deltaX * i, y0 + deltaY * i);
+                moveArray[position++] = new Cell(x0 + deltaX * i, y0);
             }
             return moveArray;
         } else {
-            throw new ImpossibleMoveException("Your bishop can't move such way");
+            throw new ImpossibleMoveException("Your rook can't move such way");
         }
     }
 
     public Figure copy(Cell dest) {
-        return new Bishop(dest);
+        return new Rook(dest);
     }
 }

@@ -11,7 +11,9 @@ public class Board {
     boolean move(Cell source, Cell dest) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
 
         boolean figureExist = false;
+        boolean wayExist = true;
         int index = 0;
+
         for (int i = 0; i < 32; i++) {
             if (figures[i] != null && source.equals(figures[i].position)) {
                 index = i;
@@ -19,20 +21,16 @@ public class Board {
                 break;
             }
         }
-        boolean wayExist = true;
-        if (figures[index].way(source, dest) != null) {
-            for (Cell way : figures[index].way(source, dest)) {
-                for (int i = 0; i < 32; i++) {
-                    if (figures[i] != null && (way.getPosX() == figures[i].position.getPosX()) && (way.getPosY() == figures[i].position.getPosY())) {
-                        wayExist = false;
-                        break;
-                    }
-                }
-            }
-        }
-
         if (figureExist) {
             if (figures[index].way(source, dest) != null) {
+                for (Cell way : figures[index].way(source, dest)) {
+                    for (int i = 0; i < 32; i++) {
+                        if (figures[i] != null && (way.getPosX() == figures[i].position.getPosX()) && (way.getPosY() == figures[i].position.getPosY())) {
+                            wayExist = false;
+                            break;
+                        }
+                    }
+                }
                 if (wayExist) {
                     figures[index] = figures[index].copy(dest);
                 } else {
