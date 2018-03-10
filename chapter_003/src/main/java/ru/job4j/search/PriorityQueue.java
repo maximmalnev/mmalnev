@@ -12,15 +12,24 @@ public class PriorityQueue {
      *
      * @param task задача
      */
+
     public void put(Task task) {
-        for (int i = 0; i < tasks.size(); i++) {
-            if (task.getPriority() <= tasks.get(i).getPriority()) {
-                tasks.add(i, task);
-                break;
+        if (tasks.size() == 0) {
+            tasks.add(task);
+        } else {
+            if (task.getPriority() > tasks.get(tasks.size() - 1).getPriority()) {
+                tasks.add(tasks.size(), task);
             } else {
-                tasks.add(tasks.size(),task);
+                for (int i = 0; i < tasks.size(); i++) {
+                    if (task.getPriority() <= tasks.get(i).getPriority()) {
+                        tasks.add(i, task);
+                        break;
+                    }
+                }
             }
+
         }
+
     }
 
     public Task take() {
@@ -28,21 +37,8 @@ public class PriorityQueue {
     }
 
     public void printAll() {
-        for (Task task : tasks) {
-            System.out.println("222222");
-            System.out.println(String.format("Desc: %s, Prior: %s", task.getDesc(), task.getPriority() ));
+        for (Task task : this.tasks) {
+            System.out.println(String.format("Desc: %s, Prior: %s", task.getDesc(), task.getPriority()));
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println("111");
-        PriorityQueue queue = new PriorityQueue();
-        queue.put(new Task("low", 5));
-        queue.put(new Task("urgent", 1));
-        queue.put(new Task("middle", 3));
-        queue.printAll();
-        System.out.println("222");
-
-        //Task result = queue.take();
     }
 }
