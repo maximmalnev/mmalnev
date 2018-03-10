@@ -20,7 +20,7 @@ public class Rook extends Figure {
                 moveArray[position++] = new Cell(x0, y0 + deltaY * i);
             }
             return moveArray;
-        } else if (deltaY == 0){
+        } else if (deltaY == 0) {
             Cell[] moveArray = new Cell[Math.abs(x0 - x1)];
             for (int i = 1; i < (Math.abs(x0 - x1) + 1); i++) {
                 moveArray[position++] = new Cell(x0 + deltaX * i, y0);

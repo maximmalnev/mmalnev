@@ -20,7 +20,7 @@ public class Pawn extends Figure {
                 moveArray[position++] = new Cell(x0, y0 + deltaY * i);
             }
             return moveArray;
-        } else if (y0 > 2 && deltaX ==0 && y1 - y0 == 1) {
+        } else if (y0 > 2 && deltaX == 0 && y1 - y0 == 1) {
             Cell[] moveArray = new Cell[1];
             moveArray[0] = new Cell(x0, y0 + 1);
             return moveArray;
