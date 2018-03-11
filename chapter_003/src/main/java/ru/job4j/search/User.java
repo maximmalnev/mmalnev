@@ -15,9 +15,14 @@ public class User implements Comparable<User> {
         this.city = city;
     }
 
+    public User(int age, String name) {
+        this.age = age;
+        this.name = name;
+    }
+
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", age=" + age + ", name='" + name + '\'' + ", city='" + city + '\'' + '}';
+        return "User{" + "age=" + age + ", name='" + name + '\'' + '}';
     }
 
     public int getId() {
