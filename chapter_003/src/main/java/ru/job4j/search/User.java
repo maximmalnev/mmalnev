@@ -11,11 +11,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", city='" + city + '\'' +
-                '}';
+        return "User{" + "id=" + id + ", name='" + name + '\'' + ", city='" + city + '\'' + '}';
     }
 
     public int getId() {

@@ -1,9 +1,6 @@
 package ru.job4j.coffee;
-
 import java.util.Arrays;
-
 public class CoffeeMachine {
-
     int[] changes(int value, int price) {
         int[] count = new int[100];
         int i = 0;
@@ -40,7 +37,7 @@ public class CoffeeMachine {
             cashback -= 1;
             count[i++] = 1;
         }
-        int[] result = Arrays.copyOf(count,i);
+        int[] result = Arrays.copyOf(count, i);
         return result;
     }
 

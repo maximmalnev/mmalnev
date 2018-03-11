@@ -1,12 +1,9 @@
 package ru.job4j.tracker;
-
-import com.sun.org.apache.xpath.internal.SourceTree;
-
+import java.util.ArrayList;
 public class MenuTracker {
-
     private Input input;
     private Tracker tracker;
-    private UserAction[] actions = new UserAction[7];
+    private ArrayList<UserAction> actions = new ArrayList<>();
 
     public MenuTracker(Input input, Tracker tracker) {
         this.input = input;
@@ -14,17 +11,18 @@ public class MenuTracker {
     }
 
     public void fillActions() {
-        this.actions[0] = new AddItem(0, "Add new item");
-        this.actions[1] = new ShowItems(1, "Show all items");
-        this.actions[2] = new EditItem(2, "Edit item");
-        this.actions[3] = new DeleteItem(3, "Delete item");
-        this.actions[4] = new FindById(4, "Find by ID");
-        this.actions[5] = new FindByName(5, "Find by Name");
-        this.actions[6] = new ExitMenu(6, "Exit");
+        actions.add(new AddItem(0, "Add new item"));
+        actions.add(new ShowItems(1, "Show all items"));
+        actions.add(new EditItem(2, "Edit item"));
+        actions.add(new DeleteItem(3, "Delete item"));
+        actions.add(new FindById(4, "Find by ID"));
+        actions.add(new FindByName(5, "Find by Name"));
+        actions.add(new ExitMenu(6, "Exit"));
     }
 
     public int select(int key) {
-        this.actions[key].execute(this.input, this.tracker);
+        UserAction actionToExe = actions.get(key);
+        actionToExe.execute(this.input, this.tracker);
         return key;
     }
 
@@ -48,7 +46,6 @@ public class MenuTracker {
             tracker.add(new Item(name, desc));
         }
     }
-
     private static class ShowItems extends BaseAction {
         public ShowItems(int key, String name) {
             super(key, name);
@@ -61,7 +58,6 @@ public class MenuTracker {
             }
         }
     }
-
     private class DeleteItem extends BaseAction {
         public DeleteItem(int key, String name) {
             super(key, name);
@@ -77,7 +73,6 @@ public class MenuTracker {
             }
         }
     }
-
     private class FindById extends BaseAction {
         public FindById(int key, String name) {
             super(key, name);
@@ -89,7 +84,6 @@ public class MenuTracker {
             System.out.println("Item with id " + id + " : " + tracker.findById(id).getName());
         }
     }
-
     private class FindByName extends BaseAction {
         public FindByName(int key, String name) {
             super(key, name);
@@ -98,13 +92,12 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             String name = input.ask("Please enter tack name:");
-            Item[] items = tracker.findByName(name);
+            ArrayList<Item> items = tracker.findByName(name);
             for (Item item : items) {
                 System.out.println("Task with name " + name + " : " + item.getId());
             }
         }
     }
-
     private class ExitMenu extends BaseAction {
         public ExitMenu(int key, String name) {
             super(key, name);
@@ -112,11 +105,9 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
-
         }
     }
 }
-
 class EditItem extends BaseAction {
     public EditItem(int key, String name) {
         super(key, name);
