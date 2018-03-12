@@ -38,9 +38,5 @@
             </plugin>
         </plugins>
     </build>
-    <modules>
-        <module>../chapter_003</module>
-    </modules>
-
 
 </project>
