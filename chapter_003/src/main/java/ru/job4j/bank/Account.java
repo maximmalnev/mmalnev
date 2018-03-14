@@ -23,9 +23,6 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" +
-                "requisites=" + requisites +
-                ", value=" + value +
-                '}';
+        return "Account{" + "requisites=" + requisites + ", value=" + value + '}';
     }
 }

@@ -5,25 +5,39 @@ import java.util.*;
 public class Bank {
     @Override
     public String toString() {
-        return "Bank{" +
-                "usersList=" + usersList +
-                '}';
+        return "Bank{" + "usersList=" + usersList + '}';
+    }
+
+    public Map<User, List<Account>> getUsersList() {
+        return usersList;
     }
 
     private Map<User, List<Account>> usersList = new HashMap<>();
 
-    //добавление пользователя
+    /**
+     * Добавление нового пользователя банка
+     *
+     * @param user - пользователь
+     */
     public void addUser(User user) {
-
-        usersList.put(user, new ArrayList<>());
+        usersList.putIfAbsent(user, new ArrayList<>());
     }
 
-    //удаление пользователя
+    /**
+     * Удаление пользователя банка
+     *
+     * @param user - пользователь
+     */
     public void deleteUser(User user) {
         usersList.remove(user);
     }
 
-    //добавить счёт пользователю
+    /**
+     * Добавление аккаунта пользователю
+     *
+     * @param passport - паспортные данные пользователя
+     * @param account  - аккаунт для добавления
+     */
     public void addAccountToUser(String passport, Account account) {
         usersList.forEach((user, acc) -> {
             if (passport.equals(user.getPassport())) {
@@ -32,12 +46,28 @@ public class Bank {
         });
     }
 
-    //удалить один счёт пользователя
+    /**
+     * Удаление аккаунта пользователя
+     *
+     * @param passport - паспортные данные пользователя
+     * @param account  - аккаунт для удаления
+     */
     public void deleteAccountFromUser(String passport, Account account) {
-
+        usersList.forEach((user, acc) -> {
+            if (passport.equals(user.getPassport())) {
+                if (acc.indexOf(account) >= 0) {
+                    acc.remove(acc.indexOf(account));
+                }
+            }
+        });
     }
 
-    //получить список счетов для пользователя
+    /**
+     * Получение списка аккаунтов пользователя
+     *
+     * @param passport - паспортные данные пользователя
+     * @return - список аккаунтов пользователя
+     */
     public List<Account> getUserAccounts(String passport) {
         List<Account> list = new ArrayList<>();
         Iterator<Map.Entry<User, List<Account>>> entries = usersList.entrySet().iterator();
@@ -51,8 +81,15 @@ public class Bank {
         return list;
     }
 
-    //метод для перечисления денег с одного счёта на другой счёт:
-    //если счёт не найден или не хватает денег на счёте srcAccount (с которого переводят) должен вернуть false.
+    /**
+     * Перевод средств со счета на счет
+     *
+     * @param srcPassport  - паспортные данные пользователя от которого переводятся средства
+     * @param srcRequisite - реквизиты аккаунта пользователя от которого переводятся средства
+     * @param destPassport - паспортные данные пользователя которому переводятся средства
+     * @param dstRequisite - реквизиты аккаунта пользователя которому переводятся средства
+     * @return - true если удалось перевести средства, false если нет
+     */
     public boolean transferMoney(String srcPassport, Integer srcRequisite, String destPassport, Integer dstRequisite, int amount) {
         boolean result = false;
         boolean haveMoney = false;
@@ -69,6 +106,7 @@ public class Bank {
                         if (x >= amount) {
                             account.setValue(x - amount);
                             haveMoney = true;
+                            break;
                         }
                     }
                 }
@@ -86,43 +124,12 @@ public class Bank {
                             int x = account.getValue();
                             account.setValue(x + amount);
                             result = true;
+                            break;
                         }
                     }
                 }
             }
         }
-
         return result;
-    }
-
-    public static void main(String[] args) {
-        // новый банк
-        Bank bank = new Bank();
-
-        //новые пользователи
-        User user1 = new User("Ivan", "111111");
-        User user2 = new User("Vladimir", "222222");
-        //User user3 = new User("Petr", "333333");
-
-        //новые аакаунты
-        Account acc1 = new Account(432311, 1000);
-        Account acc2 = new Account(213588, 200);
-
-        bank.addUser(user1);
-        bank.addUser(user2);
-        //bank.addUser(user3);
-
-        bank.addAccountToUser("111111", acc1);
-        bank.addAccountToUser("222222", acc2);
-
-        System.out.println(bank);
-        System.out.println("-----------------");
-        System.out.println(bank.getUserAccounts("111111"));
-        System.out.println("-----------------");
-        boolean print = bank.transferMoney("111111", 432311, "222222", 213588, 100);
-        System.out.println(print);
-        System.out.println("-----------------");
-        System.out.println(bank);
-
     }
 }
