@@ -37,5 +37,25 @@ public class ListCompareTest {
         );
         assertThat(rst, is(1));
     }
+
+    @Test
+    public void whenFirstShorterAndGreaterThenPlus() {
+        ListCompare compare = new ListCompare();
+        int rst = compare.compare(
+                "Кац",
+                "Арсентьев"
+        );
+        assertThat(rst, is(1));
+    }
+
+    @Test
+    public void whenSecondShorterAndGreaterThenMinus() {
+        ListCompare compare = new ListCompare();
+        int rst = compare.compare(
+                "Арсентьев",
+                "Кац"
+        );
+        assertThat(rst, is(-1));
+    }
 }
 
