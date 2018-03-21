@@ -16,7 +16,10 @@ public class Department {
         }
         List<String> list = new ArrayList<>();
         list.addAll(sortedList);
-        Collections.sort(list, new NaturalOrderComparator());
+        //Collections.sort(list, new NaturalOrderComparator());
+        List<List<String>> listString  = Convert.divide(list);
+        Collections.sort(listString, new NaturalOrderAscComparator());
+        list = Convert.combine(listString);
         return list;
     }
 
@@ -53,6 +56,38 @@ public class Department {
                 }
             }
             return res;
+        }
+    }
+
+    public static class Convert {
+        static List<List<String>> divide(List<String> list) {
+            List<List<String>> stringFullList= new ArrayList<>();
+            for (String string : list) {
+                List<String> stringList = new ArrayList<>();
+                int i =0;
+                for (int j = 0; j < string.length(); i++) {
+                    if (string.charAt(j) == '\\') {
+                        stringList.add(string.substring(i,j));
+                        i = j+1;
+                    } else if (j == string.length() - 1) {
+                        stringList.add(string.substring(i,j));
+                    }
+                }
+                stringFullList.add(stringList);
+            }
+            return stringFullList;
+        }
+
+        static List<String> combine(List<List<String>> list) {
+            List<String> stringList= new ArrayList<>();
+            for (List<String> strList : list) {
+                String tmp = new String();
+                for (int i = 0; i < strList.size(); i++) {
+                    tmp = tmp + "/" + strList.get(i);
+                }
+                stringList.add(tmp);
+            }
+            return stringList;
         }
     }
 
