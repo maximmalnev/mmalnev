@@ -3,7 +3,7 @@ package ru.job4j.sort;
 import java.util.Comparator;
 import java.util.List;
 
-public class NaturalOrderAscComparator implements Comparator<List<String>> {
+public class NaturalOrderDescComparator implements Comparator<List<String>> {
     @Override
     public int compare(List<String> left, List<String> right) {
         int result = 0;
@@ -12,13 +12,13 @@ public class NaturalOrderAscComparator implements Comparator<List<String>> {
             String leftStr = left.get(i);
             String rightStr = right.get(i);
             if (leftStr.length() < rightStr.length()) {
-                result = -1;
+                result = 1;
                 break;
             } else if (leftStr.length() == rightStr.length()) {
-                result = leftStr.compareTo(rightStr);
+                result = -leftStr.compareTo(rightStr);
                 break;
             } else {
-                result = 1;
+                result = -1;
             }
         }
         return result;
