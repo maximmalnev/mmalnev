@@ -1,7 +1,5 @@
 package ru.job4j.sort;
-
 import java.util.*;
-
 public class Department {
     public static List<String> sortAscendingly(String[] stringArray) {
         SortedSet<String> sortedList = new TreeSet<>();
@@ -81,7 +79,6 @@ public class Department {
                 } else {
                     tmp = tmp + strList.get(i);
                 }
-
             }
             stringList.add(tmp);
         }
@@ -89,10 +86,8 @@ public class Department {
     }
 
     public static void main(String[] args) {
-
-
         String[] depsToSort = {"K1\\SK1", "K1\\SK2", "K1\\SK1\\SSK1", "K1\\SK1\\SSK2", "K2", "K2\\SK1\\SSK1", "K2\\SK1\\SSK2", "K11\\SK1"};
-
+        //String[] depsToSort = {"K1\\SK1", "K1\\SK10", "K2", "K11"};
         System.out.println("Входной массив строк");
         System.out.println("[K1\\SK1, K1\\SK2, K1\\SK1\\SSK1, K1\\SK1\\SSK2, K2, K2\\SK1\\SSK1, K2\\SK1\\SSK2, K11\\SK1]");
         System.out.println("Прямая сортировка");
