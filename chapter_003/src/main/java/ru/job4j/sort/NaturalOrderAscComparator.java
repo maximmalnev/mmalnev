@@ -7,7 +7,6 @@ public class NaturalOrderAscComparator implements Comparator<List<String>> {
     @Override
     public int compare(List<String> left, List<String> right) {
         int result = 0;
-
         for (int i = 0; i < Math.min(left.size(), right.size()); i++) {
             String leftStr = left.get(i);
             String rightStr = right.get(i);
