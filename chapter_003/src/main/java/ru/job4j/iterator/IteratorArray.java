@@ -1,7 +1,7 @@
 package ru.job4j.iterator;
 
 import java.util.Iterator;
-
+import java.util.NoSuchElementException;
 public class IteratorArray implements Iterator {
 
     private final int[][] values;
@@ -22,7 +22,7 @@ public class IteratorArray implements Iterator {
     }
 
     @Override
-    public Object next() {
+    public Object next() throws NoSuchElementException {
         int result = values[posi][posj];
         if (values[posi].length > posj + 1) {
             posj++;
@@ -38,5 +38,8 @@ public class IteratorArray implements Iterator {
         while (ia.hasNext()) {
             System.out.println(ia.next());
         }
+        IteratorArray ia2 = new IteratorArray(new int[][]{});
+        ia2.next();
+
     }
 }
