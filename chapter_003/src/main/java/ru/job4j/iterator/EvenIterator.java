@@ -29,7 +29,7 @@ public class EvenIterator implements Iterator {
         if (pos < values.length) {
             for (int i = pos; i < values.length; i++) {
                 if (values[i] % 2 == 0) {
-                    pos = i+1;
+                    pos = i + 1;
                     return values[i];
                 }
             }
