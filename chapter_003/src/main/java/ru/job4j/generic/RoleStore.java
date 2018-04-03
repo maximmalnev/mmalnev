@@ -46,6 +46,11 @@ public class RoleStore implements Store {
         Role r2 = new Role("222");
         Role r3 = new Role("333");
 
-        roleStore.add();
+        roleStore.add(r1);
+        roleStore.add(r2);
+        roleStore.add(r3);
+
+        //roleStore.delete("111");
+        System.out.println(roleStore.findById("111"));
     }
 }
