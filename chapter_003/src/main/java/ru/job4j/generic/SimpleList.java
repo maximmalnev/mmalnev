@@ -31,6 +31,22 @@ public class SimpleList<E> implements Iterable<E> {
         this.index--;
     }
 
+    public void delete(E obj) {
+        int index = -1;
+        for (int i = 0; i < objects.length; i++) {
+            if (obj.equals(objects[i])) {
+                index = i;
+                break;
+            }
+        }
+        if (index != -1) {
+            for (int i = index; i < this.index; i++) {
+                objects[i] = objects[i + 1];
+            }
+            this.index--;
+        }
+    }
+
     @Override
     public Iterator<E> iterator() {
         Iterator<E> it = new Iterator<E>() {

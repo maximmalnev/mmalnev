@@ -1,6 +1,7 @@
 package ru.job4j.generic;
 
 public interface Store<T extends Base> {
+    SimpleList<Base> LIST = new SimpleList<>(10);
 
     void add(T model);
 
