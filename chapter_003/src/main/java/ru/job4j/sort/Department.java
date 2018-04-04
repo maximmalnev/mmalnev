@@ -4,18 +4,8 @@ import java.util.*;
 
 public class Department {
     public static List<String> sortAscendingly(String[] stringArray) {
-        SortedSet<String> sortedList = new TreeSet<>();
-        for (String string : stringArray) {
-            for (int i = 0; i < string.length(); i++) {
-                if (string.charAt(i) == '\\') {
-                    sortedList.add(string.substring(0, i));
-                }
-                sortedList.add(string);
-            }
-        }
-        List<String> list = new ArrayList<>();
-        list.addAll(sortedList);
         List<List<String>> listString = new ArrayList<>();
+        List<String> list = divideDesp(stringArray);
         for (String tmp : list) {
             listString.add(divide(tmp));
         }
@@ -25,6 +15,16 @@ public class Department {
     }
 
     public static List<String> sortDescendingly(String[] stringArray) {
+        List<List<String>> listString = new ArrayList<>();
+        List<String> list = divideDesp(stringArray);
+        for (String tmp : list) {
+            listString.add(divide(tmp));
+        }
+        Collections.sort(listString, new NaturalOrderDescComparator());
+        return combine(listString);
+    }
+
+    public static List<String> divideDesp(String[] stringArray) {
         SortedSet<String> sortedList = new TreeSet<>();
         for (String string : stringArray) {
             for (int i = 0; i < string.length(); i++) {
@@ -36,12 +36,6 @@ public class Department {
         }
         List<String> list = new ArrayList<>();
         list.addAll(sortedList);
-        List<List<String>> listString = new ArrayList<>();
-        for (String tmp : list) {
-            listString.add(divide(tmp));
-        }
-        Collections.sort(listString, new NaturalOrderDescComparator());
-        list = combine(listString);
         return list;
     }
 
@@ -73,16 +67,6 @@ public class Department {
             stringList.add(tmp);
         }
         return stringList;
-    }
-
-    public static void main(String[] args) {
-        String[] depsToSort = {"K1\\SK1", "K1\\SK2", "K1\\SK1\\SSK1", "K1\\SK1\\SSK2", "K2", "K2\\SK1\\SSK1", "K2\\SK1\\SSK2", "K11\\SK1"};
-        System.out.println("Входной массив строк");
-        System.out.println("[K1\\SK1, K1\\SK2, K1\\SK1\\SSK1, K1\\SK1\\SSK2, K2, K2\\SK1\\SSK1, K2\\SK1\\SSK2, K11\\SK1]");
-        System.out.println("Прямая сортировка");
-        System.out.println(sortAscendingly(depsToSort));
-        System.out.println("Обратная сортировка");
-        System.out.println(sortDescendingly(depsToSort));
     }
 }
 
