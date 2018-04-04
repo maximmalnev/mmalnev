@@ -14,14 +14,16 @@ public class EvenIterator implements Iterator {
 
     @Override
     public boolean hasNext() {
+        boolean result = false;
         if (pos < values.length) {
             for (int i = pos; i < values.length; i++) {
                 if (values[i] % 2 == 0) {
-                    return true;
+                    result = true;
+                    break;
                 }
             }
         }
-        return false;
+        return result;
     }
 
     @Override
