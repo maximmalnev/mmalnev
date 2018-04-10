@@ -6,8 +6,8 @@ import java.util.NoSuchElementException;
 public class IteratorArray implements Iterator {
 
     private final int[][] values;
-    private int posi = 0;
-    private int posj = 0;
+    private int row = 0;
+    private int cell = 0;
 
     public IteratorArray(int[][] values) {
         this.values = values;
@@ -15,25 +15,22 @@ public class IteratorArray implements Iterator {
 
     @Override
     public boolean hasNext() {
-        return !(values.length == posi + 1 && values[posi].length == posj);
+        return !(values.length == 0 || (values.length - 1 == row && values[row].length == cell));
     }
 
     @Override
     public Object next() throws NoSuchElementException {
-        if (values.length == 0) {
+        int result;
+        if (!hasNext()) {
             throw new NoSuchElementException();
-        } else if (posj < values[posi].length) {
-            return values[posi][posj++];
         } else {
-            do {
-                posi++;
-                posj = 0;
-            } while (values[posi].length == 0 && posi < values.length);
-            if (posi < values.length && values[posi].length != 0) {
-                return values[posi][posj++];
+            if (cell != values[row].length) {
+                result = values[row][cell++];
             } else {
-                throw new NoSuchElementException();
+                cell = 0;
+                result = values[++row][cell++];
             }
         }
+        return result;
     }
 }
