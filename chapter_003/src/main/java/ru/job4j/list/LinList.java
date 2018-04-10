@@ -51,6 +51,48 @@ public class LinList<E> implements Iterable<E> {
         return currentNode.getData();
     }
 
+    public E removeTail() {
+
+        if (this.isEmpty()) {
+            return null;
+        } else if (this.size() == 1) {
+            return this.clear();
+        } else {
+
+            Node<E> previousNode = this.head;
+            for (int i = 1; i < size() - 1; i++) {
+                previousNode = previousNode.getNext();
+            }
+
+            E returnData = get(this.size());
+            previousNode.setNext(null);
+            this.tail = previousNode;
+            listSize--;
+            return returnData;
+        }
+    }
+
+    public E clear() {
+        E headData = this.get(1);
+        head = null;
+        tail = null;
+        listSize = 0;
+        return headData;
+    }
+
+    public E removeHead() {
+        if (isEmpty()) {
+            return null;
+        } else if (size() == 1) {
+            return clear();
+        } else {
+            E headData = get(1);
+            this.head = head.getNext();
+            this.listSize--;
+            return headData;
+        }
+    }
+
     public String toString() {
         Node<E> currentNode = this.head;
         StringBuilder output = new StringBuilder();
