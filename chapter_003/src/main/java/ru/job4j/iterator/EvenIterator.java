@@ -28,14 +28,18 @@ public class EvenIterator implements Iterator {
 
     @Override
     public Object next() throws NoSuchElementException {
-        if (pos < values.length) {
+        int result = 0;
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        } else {
             for (int i = pos; i < values.length; i++) {
                 if (values[i] % 2 == 0) {
+                    result = values[i];
                     pos = i + 1;
-                    return values[i];
+                    break;
                 }
             }
         }
-        throw new NoSuchElementException();
+        return result;
     }
 }
