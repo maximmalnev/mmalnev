@@ -4,15 +4,15 @@ public class RoleStore extends AbstractStore {
 
     @Override
     public void add(Base model) {
-        LIST.add((Role) model);
+        list.add((Role) model);
     }
 
     @Override
     public boolean replace(String id, Base model) {
-        for (Base base : LIST) {
+        for (Base base : list) {
             if (base.getId() == id) {
-                LIST.delete(base);
-                LIST.add((Role) model);
+                list.delete(base);
+                list.add((Role) model);
                 return true;
             }
         }

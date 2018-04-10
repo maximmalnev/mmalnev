@@ -4,15 +4,15 @@ public class UserStore extends AbstractStore {
 
     @Override
     public void add(Base model) {
-        LIST.add((User) model);
+        list.add((User) model);
     }
 
     @Override
     public boolean replace(String id, Base model) {
-        for (Base base : LIST) {
+        for (Base base : list) {
             if (base.getId() == id) {
-                LIST.delete(base);
-                LIST.add((User) model);
+                list.delete(base);
+                list.add((User) model);
                 return true;
             }
         }
