@@ -6,8 +6,8 @@ import java.util.Iterator;
 public class DynamicList<E> implements Iterable<E> {
 
     private Object[] container;
-    public int index = 0;
-    private Integer modCount = 0;
+    private int index = 0;
+    private int modCount = 0;
 
     public DynamicList(int size) {
         container = new Object[size];
