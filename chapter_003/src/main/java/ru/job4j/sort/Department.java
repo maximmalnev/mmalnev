@@ -3,18 +3,19 @@ package ru.job4j.sort;
 import java.util.*;
 
 public class Department {
-    public static List<String> sortAscendingly(String[] stringArray) {
-        List<List<String>> listString = new ArrayList<>();
+    public List<String> sortAscendingly(String[] stringArray) {
         List<String> list = divideDesp(stringArray);
+
+        List<List<String>> listString = new ArrayList<>();
         for (String tmp : list) {
             listString.add(divide(tmp));
         }
+
         Collections.sort(listString, new NaturalOrderAscComparator());
-        list = combine(listString);
-        return list;
+        return combine(listString);
     }
 
-    public static List<String> sortDescendingly(String[] stringArray) {
+    public List<String> sortDescendingly(String[] stringArray) {
         List<List<String>> listString = new ArrayList<>();
         List<String> list = divideDesp(stringArray);
         for (String tmp : list) {
@@ -24,7 +25,7 @@ public class Department {
         return combine(listString);
     }
 
-    public static List<String> divideDesp(String[] stringArray) {
+    public List<String> divideDesp(String[] stringArray) {
         SortedSet<String> sortedList = new TreeSet<>();
         for (String string : stringArray) {
             for (int i = 0; i < string.length(); i++) {
@@ -39,7 +40,7 @@ public class Department {
         return list;
     }
 
-    public static List<String> divide(String string) {
+    public List<String> divide(String string) {
         List<String> stringList = new ArrayList<>();
         int i = 0;
         for (int j = 0; j < string.length(); j++) {
@@ -53,7 +54,7 @@ public class Department {
         return stringList;
     }
 
-    public static List<String> combine(List<List<String>> list) {
+    public List<String> combine(List<List<String>> list) {
         List<String> stringList = new ArrayList<>();
         for (List<String> strList : list) {
             String tmp = new String();
