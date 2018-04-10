@@ -29,14 +29,16 @@ public class Converter {
 
             @Override
             public Integer next() throws NoSuchElementException {
-                if (temp.hasNext()) {
-                    return temp.next();
+                Integer result = 0;
+                if (!temp.hasNext() && !it.hasNext()) {
+                    throw new NoSuchElementException();
+                } else if (temp.hasNext()) {
+                    result = temp.next();
                 } else if (it.hasNext()) {
                     temp = it.next();
-                    return temp.next();
-                } else {
-                    throw new NoSuchElementException();
+                    result = temp.next();
                 }
+                return result;
             }
         };
     }
