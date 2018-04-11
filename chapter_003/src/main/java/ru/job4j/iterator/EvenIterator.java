@@ -18,6 +18,7 @@ public class EvenIterator implements Iterator {
         if (pos < values.length) {
             for (int i = pos; i < values.length; i++) {
                 if (values[i] % 2 == 0) {
+                    pos = i;
                     result = true;
                     break;
                 }
@@ -28,17 +29,12 @@ public class EvenIterator implements Iterator {
 
     @Override
     public Object next() throws NoSuchElementException {
-        int result = 0;
+        int result;
         if (!hasNext()) {
             throw new NoSuchElementException();
         } else {
-            for (int i = pos; i < values.length; i++) {
-                if (values[i] % 2 == 0) {
-                    result = values[i];
-                    pos = i + 1;
-                    break;
-                }
-            }
+            hasNext();
+            result = values[pos++];
         }
         return result;
     }
