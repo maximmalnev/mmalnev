@@ -1,8 +1,8 @@
 package ru.job4j.generic;
 
-public abstract class AbstractStore implements Store {
+public abstract class AbstractStore<T extends Base> implements Store<T> {
 
-    SimpleList<Base> list = new SimpleList<>(10);
+    SimpleList<T> list = new SimpleList<>(10);
 
     @Override
     public boolean delete(String id) {
@@ -16,12 +16,29 @@ public abstract class AbstractStore implements Store {
     }
 
     @Override
-    public Base findById(String id) {
-        for (Base base : list) {
+    public T findById(String id) {
+        for (T base : list) {
             if (base.getId() == id) {
                 return base;
             }
         }
         return null;
+    }
+
+    @Override
+    public void add(T model) {
+        list.add(model);
+    }
+
+    @Override
+    public boolean replace(String id, T model) {
+        for (T base : list) {
+            if (base.getId() == id) {
+                list.delete(base);
+                list.add(model);
+                return true;
+            }
+        }
+        return false;
     }
 }
