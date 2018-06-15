@@ -10,23 +10,11 @@ public class SimpleSetL<E> extends LinList<E> implements Iterable<E> {
         for (E tmp : this) {
             if (tmp.equals(value)) {
                 result = true;
+                break;
             }
         }
         if (!result) {
             super.add(value);
         }
-    }
-
-    public static void main(String[] args) {
-        SimpleSetL<Integer> simpleSetL = new SimpleSetL<>();
-
-        simpleSetL.add(1);
-        simpleSetL.add(1);
-        simpleSetL.add(2);
-        simpleSetL.add(2);
-        simpleSetL.add(3);
-
-        System.out.println(simpleSetL);
-
     }
 }

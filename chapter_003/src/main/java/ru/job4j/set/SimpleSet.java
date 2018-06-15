@@ -14,6 +14,7 @@ public class SimpleSet<E> extends SimpleList<E> implements Iterable<E> {
         for (E tmp : this) {
             if (tmp.equals(value)) {
                 result = true;
+                break;
             }
         }
         if (!result) {
