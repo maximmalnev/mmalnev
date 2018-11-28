@@ -21,12 +21,16 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
-        return children == user.children &&
-                Objects.equals(name, user.name) &&
-                Objects.equals(birthday, user.birthday);
+        return children == user.children
+                && Objects.equals(name, user.name)
+                && Objects.equals(birthday, user.birthday);
     }
 
     @Override
@@ -36,7 +40,7 @@ public class User {
     }
 
     public static void main(String[] args) {
-        GregorianCalendar gBirth = new GregorianCalendar(2013,0,31);
+        GregorianCalendar gBirth = new GregorianCalendar(2013, 0, 31);
         User userIvan = new User();
         userIvan.setName("Ivan");
         userIvan.setChildren(2);
@@ -46,9 +50,9 @@ public class User {
         userDaniil.setChildren(2);
         userDaniil.setBirthday(gBirth);
 
-        Map userMap = new HashMap <User, Object>();
-        userMap.put(userIvan,1);
-        userMap.put(userDaniil,2);
+        Map userMap = new HashMap<User, Object>();
+        userMap.put(userIvan, 1);
+        userMap.put(userDaniil, 2);
 
         System.out.println(userMap);
     }

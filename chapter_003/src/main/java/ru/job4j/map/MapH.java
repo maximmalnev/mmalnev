@@ -75,8 +75,8 @@ public class MapH<K, V> implements Iterable {
             @Override
             public EntryH next() {
                 for (int i = currentIndex; i < mapSize; i++) {
-                    if (table[i] != null){
-                        currentIndex = i+1;
+                    if (table[i] != null) {
+                        currentIndex = i + 1;
                         return table[i];
                     }
                 }

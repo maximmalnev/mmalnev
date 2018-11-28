@@ -15,11 +15,29 @@ public class Node<E extends Comparable<E>> {
         this.children.add(child);
     }
 
+    public boolean haveChildren() {
+        return children != null;
+    }
+
     public List<Node<E>> leaves() {
         return this.children;
     }
 
+    public boolean contains(E element) {
+        return children.contains(element);
+    }
+
     public boolean eqValue(E that) {
         return this.value.compareTo(that) == 0;
+    }
+
+    E getValue() {
+        return this.value;
+    }
+
+    void print() {
+        for (Node<E> object : children) {
+            System.out.println(this.value + "->" + object.getValue());
+        }
     }
 }
