@@ -19,6 +19,10 @@ public class Node<E extends Comparable<E>> {
         return children != null;
     }
 
+    public boolean haveChild(E child) {
+        return children.contains(child);
+    }
+
     public List<Node<E>> leaves() {
         return this.children;
     }
@@ -33,11 +37,5 @@ public class Node<E extends Comparable<E>> {
 
     E getValue() {
         return this.value;
-    }
-
-    void print() {
-        for (Node<E> object : children) {
-            System.out.println(this.value + "->" + object.getValue());
-        }
     }
 }

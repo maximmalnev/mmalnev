@@ -13,18 +13,13 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     @Override
     public boolean add(E parent, E child) {
         boolean result = false;
-        Queue<Node<E>> data = new LinkedList<>();
-        data.offer(this.root);
-        while (!data.isEmpty()) {
-            Node<E> el = data.poll();
-            if (el.eqValue(parent)) {
-                if (!el.contains(child)) {
-                    el.add(new Node(child));
-                    break;
-                }
-            }
-            for (Node<E> node : el.leaves()) {
-                data.offer(node);
+        Node<E> el;
+        Optional<Node<E>> tmp = findBy(parent);
+        if (tmp.isPresent()) {
+            el = tmp.get();
+            if (!el.haveChild(child)) {
+                el.add(new Node<>(child));
+                result = true;
             }
         }
         return result;
@@ -48,58 +43,57 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         return rsl;
     }
 
-    void print() {
-        Queue<Node<E>> data = new LinkedList<>();
-        data.offer(this.root);
-        while (!data.isEmpty()) {
-            Node<E> el = data.poll();
-            el.print();
-            for (Node<E> child : el.leaves()) {
-                data.offer(child);
-            }
-        }
-    }
+    public boolean isBinary() {
+        boolean result = true;
+        Node<E> n;
 
-    Queue<Node<E>> toArray() {
-        Queue<Node<E>> data = new LinkedList<>();
-        Queue<Node<E>> list = new LinkedList<>();
-        data.offer(this.root);
-        while (!data.isEmpty()) {
-            Node<E> el = data.poll();
-            list.offer(el);
-            for (Node<E> child : el.leaves()) {
-                data.offer(child);
+        Iterator<E> iter = iterator();
+        while (iter.hasNext()) {
+            n = findBy(iter.next());
+            if (n.leaves().size()>2){
+                result= false;
+                break;
             }
         }
-        for (Node<E> node : list) {
-            node.print();
-        }
-        return list;
+        return result;
     }
 
     @Override
     public Iterator<E> iterator() {
+        Queue<Node<E>> data = new LinkedList<>();
+        data.offer(this.root);
+
         Iterator iterator = new Iterator() {
-
-            private Queue<Node<E>> list = toArray();
-            int index = 0;
-
 
             @Override
             public boolean hasNext() {
-                boolean result = false;
-                if (index < list.size()) {
-                    result = true;
-                }
-                return result;
+                return !data.isEmpty();
             }
 
             @Override
             public Node<E> next() {
-                index++;
-                return list.poll();
+                if (data.peek().haveChildren()) {
+                    for (Node<E> l : data.peek().leaves()) {
+                        data.offer(l);
+                    }
+                }
+                return data.poll();
             }
         };
         return iterator;
+    }
+
+    public static void main(String[] args) {
+        Tree<Integer> tree = new Tree<>(new Node<>(1));
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(1, 4);
+        tree.add(4, 5);
+        tree.add(5, 6);
+
+        Iterator<Integer> iter = tree.iterator();
+        while (iter.hasNext()) {
+            System.out.println(iter.next());
+        }
     }
 }
