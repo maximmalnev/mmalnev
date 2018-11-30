@@ -45,16 +45,17 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
 
     public boolean isBinary() {
         boolean result = true;
-        Node<E> n;
-
-        Iterator<E> iter = iterator();
-        while (iter.hasNext()) {
-            n = findBy(iter.next());
-            if (n.leaves().size()>2){
-                result= false;
-                break;
+        Queue<Node<E>> data = new LinkedList<>();
+        data.offer(this.root);
+        if (data.peek().haveChildren() && data.peek().leaves().size() <= 2) {
+            for (Node<E> l : data.peek().leaves()) {
+                data.offer(l);
             }
+            data.poll();
+        } else {
+            result = false;
         }
+
         return result;
     }
 
@@ -87,13 +88,11 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         Tree<Integer> tree = new Tree<>(new Node<>(1));
         tree.add(1, 2);
         tree.add(1, 3);
-        tree.add(1, 4);
+        //tree.add(1, 4);
         tree.add(4, 5);
         tree.add(5, 6);
 
-        Iterator<Integer> iter = tree.iterator();
-        while (iter.hasNext()) {
-            System.out.println(iter.next());
-        }
+        System.out.println(tree.isBinary());
     }
+
 }

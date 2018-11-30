@@ -3,21 +3,70 @@ package ru.job4j.map;
 import java.util.Iterator;
 
 public class MapH<K, V> implements Iterable {
+
+    static class EntryH {
+        private Object key;
+        private Object value;
+
+        EntryH(Object key, Object value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public Object getKey() {
+            return key;
+        }
+
+        public Object getValue() {
+            return value;
+        }
+    }
+
     private EntryH[] table;
     private int mapSize = 128;
     private int elements = 0;
+    private float loadFactor = 0;
 
     public MapH() {
         table = new EntryH[mapSize];
     }
 
+    public MapH(int size) {
+        table = new EntryH[size];
+        this.mapSize = size;
+    }
+
     boolean insert(K key, V value) {
         boolean result = false;
-        int hash = key.hashCode() % mapSize;
-        if (table[hash] == null) {
-            table[hash] = new EntryH(key, value);
-            elements++;
-            result = true;
+        if (loadFactor <= 0.75) {
+            int hash = key.hashCode() % mapSize;
+            if (table[hash] == null) {
+                table[hash] = new EntryH(key, value);
+                elements++;
+                loadFactor = elements / mapSize;
+                result = true;
+            }
+        } else {
+            mapSize = mapSize * 2;
+            EntryH[] tmpTable = new EntryH[mapSize];
+            elements = 0;
+            for (EntryH entry : table) {
+                if (entry != null) {
+                    int hash = entry.key.hashCode() % mapSize;
+                    if (tmpTable[hash] == null) {
+                        tmpTable[hash] = new EntryH(entry.key, entry.value);
+                        elements++;
+                    }
+                }
+            }
+            table = tmpTable;
+            int hash = key.hashCode() % mapSize;
+            if (table[hash] == null) {
+                table[hash] = new EntryH(key, value);
+                elements++;
+                loadFactor = elements / mapSize;
+                result = true;
+            }
         }
         return result;
     }
@@ -36,25 +85,11 @@ public class MapH<K, V> implements Iterable {
         int hash = key.hashCode() % mapSize;
         if (table[hash].getKey() != null && table[hash].getKey().equals(key)) {
             table[hash] = null;
-            result = true;
+            loadFactor = elements / mapSize;
             elements--;
+            result = true;
         }
         return result;
-    }
-
-    public static void main(String[] args) {
-        MapH<Integer, String> map = new MapH<>();
-        map.insert(1, "user1");
-        map.delete(1);
-        map.insert(2, "user2");
-        map.insert(3, "user3");
-
-        for (int i = 0; i < map.mapSize; i++) {
-            if (map.table[i] != null) {
-                System.out.println(map.get(i));
-            }
-        }
-        System.out.println(map.elements);
     }
 
     @Override
