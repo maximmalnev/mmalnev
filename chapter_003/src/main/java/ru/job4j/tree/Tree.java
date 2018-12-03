@@ -47,24 +47,24 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         boolean result = true;
         Queue<Node<E>> data = new LinkedList<>();
         data.offer(this.root);
-        if (data.peek().haveChildren() && data.peek().leaves().size() <= 2) {
-            for (Node<E> l : data.peek().leaves()) {
-                data.offer(l);
+        while (!data.isEmpty()) {
+            if (data.peek().haveChildren() && data.peek().leaves().size() <= 2) {
+                for (Node<E> l : data.peek().leaves()) {
+                    data.offer(l);
+                }
+                data.poll();
+            } else {
+                result = false;
+                break;
             }
-            data.poll();
-        } else {
-            result = false;
         }
-
         return result;
     }
 
     @Override
     public Iterator<E> iterator() {
-        Queue<Node<E>> data = new LinkedList<>();
-        data.offer(this.root);
-
-        Iterator iterator = new Iterator() {
+        return new Iterator<E>() {
+            Queue<Node<E>> data = new LinkedList<>(Collections.singletonList(root));
 
             @Override
             public boolean hasNext() {
@@ -72,16 +72,20 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
             }
 
             @Override
-            public Node<E> next() {
-                if (data.peek().haveChildren()) {
-                    for (Node<E> l : data.peek().leaves()) {
-                        data.offer(l);
+            public E next() {
+                if (data.peek() != null) {
+                    if (data.peek().haveChildren()) {
+                        for (Node<E> l : data.peek().leaves()) {
+                            data.offer(l);
+                        }
                     }
+                    return data.poll().getValue();
+                } else {
+                    return null;
                 }
-                return data.poll();
+                //return data.poll().getValue();
             }
         };
-        return iterator;
     }
 
     public static void main(String[] args) {

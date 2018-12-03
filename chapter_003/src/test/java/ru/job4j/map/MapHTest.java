@@ -2,6 +2,8 @@ package ru.job4j.map;
 
 import org.junit.Test;
 
+import java.util.Iterator;
+
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.*;
@@ -34,5 +36,28 @@ public class MapHTest {
                 map.get(8),
                 is("user8")
         );
+    }
+
+    @Test
+    public void whenItereatorHaveNext() {
+        MapH<Integer, String> map = new MapH<>(16);
+        map.insert(10, "user1");
+        map.insert(12, "user2");
+        Iterator iterator = map.iterator();
+        iterator.next();
+        assertTrue(iterator.hasNext());
+
+    }
+
+    @Test
+    public void whenItereatorHaveNoNext() {
+        MapH<Integer, String> map = new MapH<>(16);
+        map.insert(10, "user1");
+        map.insert(12, "user2");
+        Iterator iterator = map.iterator();
+        iterator.next();
+        iterator.next();
+        assertFalse(iterator.hasNext());
+
     }
 }

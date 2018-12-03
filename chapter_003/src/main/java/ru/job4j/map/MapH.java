@@ -36,16 +36,23 @@ public class MapH<K, V> implements Iterable {
         this.mapSize = size;
     }
 
+    boolean addElement(K key, V value) {
+        boolean result = false;
+        int hash = key.hashCode() % mapSize;
+        if (table[hash] == null) {
+            table[hash] = new EntryH(key, value);
+            elements++;
+            loadFactor = elements / mapSize;
+
+        }
+        return result;
+    }
+
     boolean insert(K key, V value) {
+
         boolean result = false;
         if (loadFactor <= 0.75) {
-            int hash = key.hashCode() % mapSize;
-            if (table[hash] == null) {
-                table[hash] = new EntryH(key, value);
-                elements++;
-                loadFactor = elements / mapSize;
-                result = true;
-            }
+            result = addElement(key, value);
         } else {
             mapSize = mapSize * 2;
             EntryH[] tmpTable = new EntryH[mapSize];
@@ -60,13 +67,7 @@ public class MapH<K, V> implements Iterable {
                 }
             }
             table = tmpTable;
-            int hash = key.hashCode() % mapSize;
-            if (table[hash] == null) {
-                table[hash] = new EntryH(key, value);
-                elements++;
-                loadFactor = elements / mapSize;
-                result = true;
-            }
+            result = addElement(key, value);
         }
         return result;
     }
@@ -101,8 +102,10 @@ public class MapH<K, V> implements Iterable {
             @Override
             public boolean hasNext() {
                 boolean result = false;
-                if (currentIndex < mapSize) {
-                    result = true;
+                for (int i = currentIndex; i < mapSize; i++) {
+                    if (table[i] != null) {
+                        result = true;
+                    }
                 }
                 return result;
             }
