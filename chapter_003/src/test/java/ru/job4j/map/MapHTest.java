@@ -52,11 +52,7 @@ public class MapHTest {
     @Test
     public void whenItereatorHaveNoNext() {
         MapH<Integer, String> map = new MapH<>(16);
-        map.insert(10, "user1");
-        map.insert(12, "user2");
         Iterator iterator = map.iterator();
-        iterator.next();
-        iterator.next();
         assertFalse(iterator.hasNext());
 
     }

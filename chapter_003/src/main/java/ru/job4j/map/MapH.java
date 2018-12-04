@@ -1,6 +1,8 @@
 package ru.job4j.map;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class MapH<K, V> implements Iterable {
 
@@ -50,7 +52,7 @@ public class MapH<K, V> implements Iterable {
 
     boolean insert(K key, V value) {
 
-        boolean result = false;
+        boolean result;
         if (loadFactor <= 0.75) {
             result = addElement(key, value);
         } else {
@@ -94,31 +96,38 @@ public class MapH<K, V> implements Iterable {
     }
 
     @Override
-    public Iterator iterator() {
+    public Iterator iterator() throws NoSuchElementException, ConcurrentModificationException {
         Iterator iterator = new Iterator() {
 
             private int currentIndex = 0;
+            private EntryH[] tableBegin = table;
+
 
             @Override
             public boolean hasNext() {
-                boolean result = false;
-                for (int i = currentIndex; i < mapSize; i++) {
-                    if (table[i] != null) {
-                        result = true;
+                if (tableBegin == table) {
+                    boolean result = false;
+                    for (int i = currentIndex; i < mapSize; i++) {
+                        if (table[i] != null) {
+                            currentIndex = i;
+                            result = true;
+                            break;
+                        }
                     }
+                    return result;
+                } else {
+                    throw new ConcurrentModificationException("коллекция была изменена во время работы итератора");
                 }
-                return result;
             }
 
             @Override
             public EntryH next() {
-                for (int i = currentIndex; i < mapSize; i++) {
-                    if (table[i] != null) {
-                        currentIndex = i + 1;
-                        return table[i];
-                    }
+                if (hasNext()) {
+                    return table[currentIndex++];
+                } else {
+                    throw new NoSuchElementException("В итераторе нет элементов");
                 }
-                return null;
+
             }
         };
         return iterator;
