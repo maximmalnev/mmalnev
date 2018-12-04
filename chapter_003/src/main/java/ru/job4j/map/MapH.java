@@ -27,6 +27,7 @@ public class MapH<K, V> implements Iterable {
     private EntryH[] table;
     private int mapSize = 128;
     private int elements = 0;
+    private int mod = 0;
     private float loadFactor = 0;
 
     public MapH() {
@@ -44,8 +45,8 @@ public class MapH<K, V> implements Iterable {
         if (table[hash] == null) {
             table[hash] = new EntryH(key, value);
             elements++;
+            mod++;
             loadFactor = elements / mapSize;
-
         }
         return result;
     }
@@ -90,6 +91,7 @@ public class MapH<K, V> implements Iterable {
             table[hash] = null;
             loadFactor = elements / mapSize;
             elements--;
+            mod++;
             result = true;
         }
         return result;
@@ -100,34 +102,30 @@ public class MapH<K, V> implements Iterable {
         Iterator iterator = new Iterator() {
 
             private int currentIndex = 0;
-            private EntryH[] tableBegin = table;
-
+            private int copyMod = mod;
 
             @Override
             public boolean hasNext() {
-                if (tableBegin == table) {
-                    boolean result = false;
-                    for (int i = currentIndex; i < mapSize; i++) {
-                        if (table[i] != null) {
-                            currentIndex = i;
-                            result = true;
-                            break;
-                        }
-                    }
-                    return result;
-                } else {
+                if (copyMod != mod) {
                     throw new ConcurrentModificationException("коллекция была изменена во время работы итератора");
                 }
+                boolean result = false;
+                for (int i = currentIndex; i < mapSize; i++) {
+                    if (table[i] != null) {
+                        currentIndex = i;
+                        result = true;
+                        break;
+                    }
+                }
+                return result;
             }
 
             @Override
             public EntryH next() {
-                if (hasNext()) {
-                    return table[currentIndex++];
-                } else {
+                if (!hasNext()) {
                     throw new NoSuchElementException("В итераторе нет элементов");
                 }
-
+                return table[currentIndex++];
             }
         };
         return iterator;
