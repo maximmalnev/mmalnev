@@ -73,17 +73,12 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
 
             @Override
             public E next() {
-                if (data.peek() != null) {
-                    if (data.peek().haveChildren()) {
-                        for (Node<E> l : data.peek().leaves()) {
-                            data.offer(l);
-                        }
+                if (data.peek() != null && data.peek().haveChildren()) {
+                    for (Node<E> l : data.peek().leaves()) {
+                        data.offer(l);
                     }
-                    return data.poll().getValue();
-                } else {
-                    return null;
                 }
-                //return data.poll().getValue();
+                return data.poll().getValue();
             }
         };
     }
