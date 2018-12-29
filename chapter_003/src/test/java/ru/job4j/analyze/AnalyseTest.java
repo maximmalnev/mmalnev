@@ -10,6 +10,22 @@ import java.util.List;
 
 public class AnalyseTest {
     @Test
+    public void ifWordsDiffersReturnTrue() {
+        String str1 = new String("sobaka");
+        String str2 = new String("akabos");
+        Analyze analyze = new Analyze();
+        Assert.assertTrue(analyze.wordInfo(str1, str2));
+    }
+
+    @Test
+    public void ifWordsEqualsReturnFalse() {
+        String str1 = new String("sobaka");
+        String str2 = new String("sobakaaaaa");
+        Analyze analyze = new Analyze();
+        Assert.assertFalse(analyze.wordInfo(str1, str2));
+    }
+
+    @Test
     public void diffAll() {
         List<User> previous = new LinkedList<>();
         List<User> current = new LinkedList<>();

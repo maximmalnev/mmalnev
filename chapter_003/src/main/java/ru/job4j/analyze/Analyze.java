@@ -1,9 +1,24 @@
 package ru.job4j.analyze;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 public class Analyze {
+
+    public boolean wordInfo(String first, String second) {
+        boolean result = false;
+        char[] f = first.toCharArray();
+        Arrays.sort(f);
+        String sortedF = String.valueOf(f);
+        char[] s = second.toCharArray();
+        Arrays.sort(s);
+        String sortedS = String.valueOf(s);
+        if (sortedF.equals(sortedS)) {
+            result = true;
+        }
+        return result;
+    }
 
     public static class Info {
         int[] diff(List<User> previous, List<User> current) {
