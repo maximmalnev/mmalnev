@@ -10,19 +10,27 @@ import java.util.List;
 
 public class AnalyseTest {
     @Test
-    public void ifWordsDiffersReturnTrue() {
+    public void ifWordsEqualsReturnTrue() {
         String str1 = new String("sobaka");
         String str2 = new String("akabos");
         Analyze analyze = new Analyze();
-        Assert.assertTrue(analyze.wordInfo(str1, str2));
+        Assert.assertTrue(analyze.wordInfo2(str1, str2));
     }
 
     @Test
-    public void ifWordsEqualsReturnFalse() {
+    public void ifWordsDiffersReturnFalse() {
         String str1 = new String("sobaka");
-        String str2 = new String("sobakaaaaa");
+        String str2 = new String("sobakea");
         Analyze analyze = new Analyze();
-        Assert.assertFalse(analyze.wordInfo(str1, str2));
+        Assert.assertFalse(analyze.wordInfo2(str1, str2));
+    }
+
+    @Test
+    public void ifWordsEqualsAndDiffSymbolsReturnTrue() {
+        String str1 = new String("sobaka");
+        String str2 = new String("sobakaaaaaaaaa");
+        Analyze analyze = new Analyze();
+        Assert.assertTrue(analyze.wordInfo2(str1, str2));
     }
 
     @Test

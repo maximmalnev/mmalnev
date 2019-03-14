@@ -20,6 +20,20 @@ public class Analyze {
         return result;
     }
 
+    public boolean wordInfo2(String first, String second) {
+        boolean result = false;
+        HashMap map1 = new HashMap();
+        for (int i = 0; i < first.length(); i++) {
+            map1.put(first.charAt(i), 1);
+        }
+        HashMap map2 = new HashMap();
+        for (int i = 0; i < second.length(); i++) {
+            map2.put(second.charAt(i), 1);
+        }
+        result = map1.equals(map2);
+        return result;
+    }
+
     public static class Info {
         int[] diff(List<User> previous, List<User> current) {
             int[] result = new int[3];
@@ -76,5 +90,13 @@ public class Analyze {
         public String getName() {
             return name;
         }
+    }
+
+    public static void main(String[] args) {
+        String str1 = new String("sobaka");
+        String str2 = new String("osbakaaae");
+        Analyze analyze = new Analyze();
+
+        System.out.println(analyze.wordInfo2(str1, str2));
     }
 }
